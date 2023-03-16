@@ -25,11 +25,13 @@ export default function Detail ({ params }) {
 
   return (
     <>
-        <Helmet>
-          <title>{title} | Giffy</title>
-        </Helmet>
-      <h3 className="App-title">{gif.title}</h3>
-      <Gif {...gif} />
+      <Helmet>
+        <title>{title} | Giffy</title>
+      </Helmet>
+      <div className='App-wrapper'>
+        <h3 className="App-title">{gif.title}</h3>
+        <Gif {...gif} />
+      </div>
     </>
   )
 }

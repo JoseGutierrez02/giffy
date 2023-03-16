@@ -10,7 +10,10 @@ export default function SearchResults ({ params }) {
   const { keyword } = params
   const { loading, gifs, setPage } = useGifs({ keyword })
   const externalRef = useRef();
-  const { isNearScreen } = useNearScreen({ externalRef, once: false });
+  const { isNearScreen } = useNearScreen({ 
+    externalRef: loading ? null : externalRef,
+    once: false
+  });
   const title = gifs ? `${gifs.length} resultados de ${keyword}` : '';
 
   const debounceHandleNextPage = useCallback(debounce(
@@ -29,12 +32,12 @@ export default function SearchResults ({ params }) {
           <title>{decodeURI(title)}</title>
           <meta name="description" content={decodeURI(title)} />
         </Helmet>
-        <h3 className="App-title">{decodeURI(keyword)}</h3>
-        <ListOfGifs gifs={gifs} />
-        <div id="visor" ref={externalRef}></div>
+        <div className="App-wrapper">
+          <h3 className="App-title">{decodeURI(keyword)}</h3>
+          <ListOfGifs gifs={gifs} />
+          <div id="visor" ref={externalRef}></div>
+        </div>
       </>
     }
-    {/* <br />
-    {loadingNextPage ? <Spinner /> : <button onClick={handleNextPage}>Load More</button>} */}
   </>
 }
