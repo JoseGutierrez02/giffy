@@ -1,36 +1,40 @@
-import React, { Suspense } from 'react';
+import React, { Suspense } from 'react'
 import './App.css'
-import Home from './pages/Home'
+
 import SearchResults from './pages/SearchResults'
 import Detail from './pages/Detail'
 import Pepito from './context/StaticContext'
-import {GifsContextProvider} from './context/GifsContext'
-import { Link, Route } from "wouter"
+import { GifsContextProvider } from './context/GifsContext'
+import { Link, Route } from 'wouter'
 
-const HomePage = React.lazy(() => import('./pages/Home'))
+const HomePage = React.lazy(() => import('./pages/Home'));
 
 export default function App() {
   return (
   <Pepito.Provider value={{name: 'midudev', suscribeteAlCanal: true}}>
-      <div className="App">
+      <div className='App'>
         <Suspense fallback={null}>
-          <section className="App-content">
-            <Link to="/">
-              <figure className="App-logo">
+          <section className='App-content'>
+            <Link to='/'>
+              <figure className='App-logo'>
                 <img alt='Giffy logo' src='/logo.png' />
               </figure>
             </Link>
             <GifsContextProvider>
               <Route
                 component={HomePage}
-                path="/"
+                path='/'
               />
               <Route
                 component={SearchResults}
-                path="/search/:keyword"  />
+                path='/search/:keyword'  />
               <Route
                 component={Detail}
-                path="/gif/:id"
+                path='/gif/:id'
+              />
+              <Route
+                component={() => <h1>404 ERROR :(</h1>}
+                path='/404'
               />
             </GifsContextProvider>
           </section>
